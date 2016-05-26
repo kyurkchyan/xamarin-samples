@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:CarouselSample.Controls;assembly=CarouselSample"
+             x:Class="CarouselSample.Views.CarsPage"
+             Title="Cars">
+	<ContentPage.Content>
+    <StackLayout>
+      <Label
+        Text="{Binding SelectedItem.Name}"
+        Margin="20"
+        HorizontalTextAlignment="Center"
+        VerticalTextAlignment="Center"/>
+      <controls:CarouselLayout
+        x:Name="carouselLayout"
+        ItemsSource="{Binding Cars}"
+        SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+        IndicatorStyle="Dots"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand">
+        <controls:CarouselLayout.ItemTemplate>
+          <DataTemplate>
+            <Grid
+              HorizontalOptions="FillAndExpand"
+              VerticalOptions="FillAndExpand">
+              <Image
+                Aspect="AspectFit"
+                Source="{Binding ImageUrl}"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand" />
+            </Grid>
+          </DataTemplate>
+        </controls:CarouselLayout.ItemTemplate>
+      </controls:CarouselLayout>
+    </StackLayout>
+	</ContentPage.Content>
+</ContentPage>

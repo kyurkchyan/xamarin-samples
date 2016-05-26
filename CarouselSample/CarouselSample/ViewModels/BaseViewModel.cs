@@ -1,0 +1,48 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+using Xamarin.Forms;
+
+namespace CarouselSample.ViewModels
+{
+    public class BaseViewModel : INotifyPropertyChanged
+    {
+        #region INotifyPropertyChanged implementation
+
+        public Action PageLoaded;
+        public Action ShowLoadingView;
+        public Action HideLoadingView;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = "")
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        protected virtual void OnPropertyChanged<T>(Expression<Func<T>> selectorExpression)
+        {
+            if (selectorExpression == null)
+                throw new ArgumentNullException("selectorExpression");
+            var body = selectorExpression.Body as MemberExpression;
+            if (body == null)
+                throw new ArgumentException("The body must be a member expression");
+            OnPropertyChanged(body.Member.Name);
+        }
+
+        protected virtual void OnAllPropertiesChanged()
+        {
+            OnPropertyChanged(string.Empty);
+        }
+
+        #endregion
+
+    }
+}
