@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls1="clr-namespace:VideoPlayerSample.Controls;assembly=VideoPlayerSample"
+             x:Class="VideoPlayerSample.Controls.FullscreenVideoPlayer"
+			 BackgroundColor="Black">
+	<Grid
+		HorizontalOptions="FillAndExpand"
+		VerticalOptions="FillAndExpand">
+		<controls1:VideoPlayerContainer
+			x:Name="videoPlayer"
+			HorizontalOptions="FillAndExpand"
+			VerticalOptions="FillAndExpand"/>
+		<ContentView
+			HeightRequest="80"
+			Padding="20,10,20,10"
+			BackgroundColor="#CC888888"
+			HorizontalOptions="FillAndExpand"
+			VerticalOptions="Start">
+			<Button
+				Text="Close"
+				FontSize="18"
+				Clicked="DoneButtonClicked"
+				TextColor="White"
+				BackgroundColor="Transparent"
+				HeightRequest="90"
+				HorizontalOptions="End"
+				VerticalOptions="FillAndExpand"/>
+		</ContentView>
+	</Grid>
+
+</ContentPage>
