@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Base64Sample.Converters;assembly=Base64Sample"
+             x:Class="Base64Sample.Views.ImagePage">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <converters:Base64ToImageSourceConverter x:Key="Base64ToImageSourceConverter"/>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  <Image
+    Source="{Binding Image, Converter={StaticResource Base64ToImageSourceConverter}}"
+    VerticalOptions="Center"
+    HorizontalOptions="FillAndExpand" />
+</ContentPage>
