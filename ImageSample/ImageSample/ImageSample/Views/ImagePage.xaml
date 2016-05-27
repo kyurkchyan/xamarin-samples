@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ImageSample.Views.ImagePage"
+             Padding="20">
+  <StackLayout
+    Spacing="10"
+    VerticalOptions="Center">
+    <Image
+      Source="{Binding Image}"
+      HeightRequest="250"
+      HorizontalOptions="FillAndExpand"/>
+    <Button
+      Text="Pick image from Camera"
+      Command="{Binding PickCameraImageCommand}"
+      HorizontalOptions="FillAndExpand"/>
+    <Button
+      Text="Pick image from Library"
+      Command="{Binding PickLibraryImageCommand}"
+      HorizontalOptions="FillAndExpand"/>
+  </StackLayout>
+</ContentPage>
