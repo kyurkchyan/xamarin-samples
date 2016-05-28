@@ -36,6 +36,9 @@ namespace FontSample.Services
             var fonts = JsonConvert.DeserializeObject<CustomFont[]>(json);
 
             Fonts = fonts.ToDictionary(f => f.Name, f => f.File);
+
+            //Install fonts
+            await InstallFonts(fonts);
         }
 
         #endregion
@@ -50,7 +53,7 @@ namespace FontSample.Services
 
         //For iOS we need to register custom fonts with iOS runtime. 
         //Check FontService implementation for more details.
-        protected abstract void InstallFonts(IEnumerable<CustomFont> fonts);
+        protected abstract Task InstallFonts(IEnumerable<CustomFont> fonts);
 
         #endregion
 
@@ -85,9 +88,6 @@ namespace FontSample.Services
                     await stream.WriteAsync(font.Data, 0, font.Data.Length);
                 }
             }
-
-            //Install fonts
-            InstallFonts(fonts);
         }
 
         //For simplicity sake I've added all my fonts to assembly resources

@@ -15,9 +15,8 @@ namespace FontSample.Droid.Services
             return FileSystem.Current.LocalStorage.GetFolderAsync("../cache");
         }
 
-        protected override void InstallFonts(IEnumerable<CustomFont> fonts)
+        protected override async Task InstallFonts(IEnumerable<CustomFont> fonts)
         {
-            
         }
     }
 }
