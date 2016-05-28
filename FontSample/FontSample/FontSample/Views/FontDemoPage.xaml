@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:FontSample.Controls;assembly=FontSample"
+             x:Class="FontSample.Views.FontDemoPage"
+             Padding="20">
+  <StackLayout
+    Spacing="20">
+    <controls:BindablePickerEx
+      x:TypeArguments="x:String"
+      ItemsSource="{Binding Fonts}"
+      SelectedItem="{Binding Font}"
+      HeightRequest="50"
+      HorizontalOptions="FillAndExpand"/>
+    <Button
+      Text="Sample Button"
+      FontFamily="{Binding Font}"
+      HeightRequest="50"
+      HorizontalOptions="FillAndExpand"/>
+    <Label
+      Text="Sample Label"
+      FontFamily="{Binding Font}"
+      HeightRequest="50"
+      HorizontalOptions="FillAndExpand"
+      HorizontalTextAlignment="Center"/>
+  </StackLayout>
+</ContentPage>
