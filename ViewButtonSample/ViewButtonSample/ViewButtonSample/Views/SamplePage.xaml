@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:ViewButtonSample.Controls;assembly=ViewButtonSample"
+             x:Class="ViewButtonSample.Views.SamplePage"
+             BackgroundColor="#1EB9A9">
+  <Grid
+    HorizontalOptions="FillAndExpand"
+    VerticalOptions="FillAndExpand">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="100"/>
+    </Grid.RowDefinitions>
+    <controls:ViewButton
+      Grid.Row="0"
+      Grid.Column="0"
+      HorizontalOptions="FillAndExpand"
+      VerticalOptions="FillAndExpand">
+      <Grid
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand">
+        <ContentView
+          BackgroundColor="White"
+          Opacity="0.1"
+          HorizontalOptions="FillAndExpand"
+          VerticalOptions="FillAndExpand"/>
+      </Grid>
+    </controls:ViewButton>
+
+    <controls:ViewButton
+      Grid.Row="0"
+      Grid.Column="1"
+      HorizontalOptions="FillAndExpand"
+      VerticalOptions="FillAndExpand">
+      <Grid
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand">
+        <ContentView
+          BackgroundColor="White"
+          Opacity="0.1"
+          HorizontalOptions="FillAndExpand"
+          VerticalOptions="FillAndExpand"/>
+      </Grid>
+    </controls:ViewButton>
+  </Grid>
+</ContentPage>
