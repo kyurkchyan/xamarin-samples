@@ -20,26 +20,26 @@ namespace CarouselSample.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = "")
+        protected virtual void RaisePropertyChanged([CallerMemberName]string propertyName = "")
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null)
                 handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected virtual void OnPropertyChanged<T>(Expression<Func<T>> selectorExpression)
+        protected virtual void RaisePropertyChanged<T>(Expression<Func<T>> selectorExpression)
         {
             if (selectorExpression == null)
                 throw new ArgumentNullException("selectorExpression");
             var body = selectorExpression.Body as MemberExpression;
             if (body == null)
                 throw new ArgumentException("The body must be a member expression");
-            OnPropertyChanged(body.Member.Name);
+            RaisePropertyChanged(body.Member.Name);
         }
 
         protected virtual void OnAllPropertiesChanged()
         {
-            OnPropertyChanged(string.Empty);
+            RaisePropertyChanged(string.Empty);
         }
 
         #endregion

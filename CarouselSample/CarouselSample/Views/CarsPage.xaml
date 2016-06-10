@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:controls="clr-namespace:CarouselSample.Controls;assembly=CarouselSample"
+  xmlns:views="clr-namespace:CarouselSample.Views;assembly=CarouselSample"
+  x:Class="CarouselSample.Views.CarsPage"
+  Title="Cars">
+  <Grid
+    RowSpacing="10">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <Label
+      Grid.Row="0"
+      Text="{Binding TestAction}"
+      FontSize="20"
+      FontAttributes="Bold"
+      HorizontalOptions="Center"
+      HorizontalTextAlignment="Center"
+      VerticalOptions="Center"
+      VerticalTextAlignment="Center"/>
+
+    <controls:Carousel
+      Grid.Row="1"
+      Items="{Binding Cars}"
+      Current="{Binding SelectedItem}"
+      HeightRequest="300"
+      MaxWidth="350"
+      HorizontalOptions="FillAndExpand"
+      VerticalOptions="Center"
+      BackgroundColor="Aqua">
+      <controls:Carousel.ItemTemplate>
+        <DataTemplate>
+          <views:CarCell/>
+        </DataTemplate>
+      </controls:Carousel.ItemTemplate>
+    </controls:Carousel>
+
+    <Label
+      Grid.Row="2"
+      Text="{Binding SelectedItem.Name, StringFormat='Current Item: {0}'}"
+      FontSize="20"
+      TextColor="Maroon"
+      HorizontalTextAlignment="Center"
+      VerticalTextAlignment="Center"
+      HorizontalOptions="Center"
+      VerticalOptions="Center"/>
+    
+  </Grid>
+</ContentPage>
