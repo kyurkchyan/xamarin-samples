@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:TabSample.Converters;assembly=TabSample"
+             x:Class="TabSample.App">
+  <Application.Resources>
+    <ResourceDictionary>
+
+      <!--Region Converters-->
+      <converters:TabTitleStyleConverter x:Key="TabTitleStyleConverter"/>
+      <!--End Region Converters-->
+      
+      <!--Region LABEL STYLES-->
+      <Style
+        x:Key="TabTitleStyle"
+        TargetType="Label">
+        <Setter
+          Property="FontSize"
+          Value="12"/>
+        <Setter
+          Property="TextColor"
+          Value="#adadad"/>
+      </Style>
+      <Style
+        x:Key="SelectedTabTitleStyle"
+        TargetType="Label">
+        <Setter
+          Property="FontSize"
+          Value="12"/>
+        <Setter
+          Property="FontAttributes"
+          Value="Bold"/>
+        <Setter
+          Property="TextColor"
+          Value="#338f98"/>
+      </Style>
+      <!--End Region LABEL STYLES-->
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>

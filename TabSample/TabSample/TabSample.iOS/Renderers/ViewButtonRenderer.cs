@@ -1,14 +1,14 @@
 ﻿using System;
 using System.ComponentModel;
 using CoreGraphics;
+using TabSample.Controls;
+using TabSample.iOS.Renderers;
 using UIKit;
-using ViewButtonSample.Controls;
-using ViewButtonSample.iOS.Renderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly:ExportRenderer(typeof(ViewButton), typeof(ViewButtonRenderer))]
-namespace ViewButtonSample.iOS.Renderers
+namespace TabSample.iOS.Renderers
 {
     public class ViewButtonRenderer : VisualElementRenderer<ContentView>
     {

@@ -1,14 +1,14 @@
 using System;
 using System.ComponentModel;
 using Android.Views;
-using ViewButtonSample.Controls;
-using ViewButtonSample.Droid.Renderers;
-using ViewButtonSample.Droid.Toolbox;
+using TabSample.Controls;
+using TabSample.Droid.Renderers;
+using TabSample.Droid.Toolbox;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportRenderer(typeof(ViewButton), typeof(ViewButtonRenderer))]
-namespace ViewButtonSample.Droid.Renderers
+namespace TabSample.Droid.Renderers
 {
     public class ViewButtonRenderer : VisualElementRenderer<ContentView>
     {
