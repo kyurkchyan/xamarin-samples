@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:BaseTabView
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:controls="clr-namespace:TabSample.Controls;assembly=TabSample"
+  x:Class="TabSample.Controls.HeaderTabView">
+  <Grid
+    RowSpacing="0"
+    ColumnSpacing="0"
+    Padding="0"
+    BackgroundColor="Transparent">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="17"/>
+      <RowDefinition Height="23"/>
+      <RowDefinition Height="23"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="23"/>
+      <ColumnDefinition Width="23"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <ContentView
+      x:Name="_contentContainer"
+      Grid.Row="2"
+      Grid.Column="0"
+      Grid.ColumnSpan="4"
+      Grid.RowSpan="2"
+      BackgroundColor="#efefef"
+      Padding="0,23,0,0"
+      HorizontalOptions="FillAndExpand"
+      VerticalOptions="FillAndExpand"/>
+    <controls:StretchableImage
+      Grid.Row="2"
+      Grid.Column="0"
+      Grid.ColumnSpan="4"
+      Path="shadow.png"
+      HeightRequest="3"
+      HorizontalOptions="FillAndExpand"
+      VerticalOptions="Start"/>
+    <Image
+      Grid.Row="1"
+      Grid.Column="1"
+      Grid.RowSpan="2"
+      Grid.ColumnSpan="2"
+      Source="shadowCircle.png"
+      HorizontalOptions="Center"
+      VerticalOptions="Center"/>
+    <AbsoluteLayout
+      Grid.Row="0"
+      Grid.Column="0"
+      Grid.RowSpan="2"
+      Grid.ColumnSpan="4"
+      x:Name="_header"
+      Padding="0"
+      BackgroundColor="White"
+      HorizontalOptions="FillAndExpand"
+      VerticalOptions="FillAndExpand">
+      <StackLayout
+        x:Name="_titleContainer"
+        Orientation="Horizontal"
+        BackgroundColor="Transparent"
+        Spacing="50"
+        Padding="0"
+        HeightRequest="40"
+        AbsoluteLayout.LayoutFlags="YProportional"
+        HorizontalOptions="FillAndExpand"/>
+    </AbsoluteLayout>
+    <Image
+      Grid.Row="1"
+      Grid.Column="1"
+      Grid.RowSpan="2"
+      Grid.ColumnSpan="2"
+      Source="notifications.png"
+      HorizontalOptions="Center"
+      VerticalOptions="Center"/>
+  </Grid>
+</controls:BaseTabView>

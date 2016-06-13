@@ -48,7 +48,7 @@ namespace TabSample.Controls
             set { SetValue(TabsProperty, value); }
         }
 
-        #region
+        #endregion
 
         #region CurrentTab
 
@@ -78,18 +78,15 @@ namespace TabSample.Controls
 
         #endregion
 
-
-        #endregion
-
         #region TitleTemplate
 
-        public static readonly BindableProperty TitleTemplateProperty = BindableProperty.Create(nameof(TitleTemplate), typeof (DataTemplate), typeof (BaseTabView),
-            propertyChanged:OnTitleTemplateChanged,
+        public static readonly BindableProperty TitleTemplateProperty = BindableProperty.Create(nameof(TitleTemplate), typeof(DataTemplate), typeof(BaseTabView),
+            propertyChanged: OnTitleTemplateChanged,
             defaultValue: null);
 
         public DataTemplate TitleTemplate
         {
-            get { return (DataTemplate) GetValue(TitleTemplateProperty); }
+            get { return (DataTemplate)GetValue(TitleTemplateProperty); }
             set { SetValue(TitleTemplateProperty, value); }
         }
 
@@ -97,7 +94,6 @@ namespace TabSample.Controls
 
         #endregion
 
-        #endregion
 
         #region Protected API
 
@@ -193,10 +189,22 @@ namespace TabSample.Controls
             View element = null;
             if (!(_tabViews.TryGetValue(tab, out element)))
             {
-                element = (View)ContentTemplate.CreateContent();
+                var selector = ContentTemplate as DataTemplateSelector;
+                if (selector != null)
+                {
+                    var template = selector.SelectTemplate(tab, this);
+                    element = template?.CreateContent() as View;
+                }
+                else
+                {
+                    element = (View)ContentTemplate.CreateContent();
+                }
+                if (element == null)
+                    throw new InvalidOperationException(
+                        "Could not instantiate content. Please make sure that your ContentTemplate is configured correctly.");
                 _tabViews[tab] = element;
+                element.BindingContext = tab;
             }
-            element.BindingContext = tab;
             return element;
         }
 
@@ -218,6 +226,8 @@ namespace TabSample.Controls
         private void InsertTab(ITabItem tab, int index)
         {
             InsertTitle(tab, index);
+            if (tab.IsSelected)
+                CurrentTab = Tabs?.FirstOrDefault();
         }
 
         private void RemoveTab(ITabItem tab, int index)

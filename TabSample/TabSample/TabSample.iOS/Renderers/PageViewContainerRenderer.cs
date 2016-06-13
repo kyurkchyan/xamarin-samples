@@ -1,4 +1,5 @@
-﻿using TabSample.Controls;
+﻿using System;
+using TabSample.Controls;
 using TabSample.iOS.Renderers;
 using TabSample.Toolbox;
 using UIKit;
@@ -32,29 +33,21 @@ namespace TabSample.iOS.Renderers
 
         }
 
-        Page _initializedPage;
-
         void ChangePage(Page page)
         {
             if (page != null)
             {
+
                 page.Parent = Element.GetParentPage();
                 
-                var pageRenderer = Platform.GetRenderer(page);
-                UIViewController viewController = null;
-                if (pageRenderer != null && pageRenderer.ViewController != null)
-                {
-                    viewController = pageRenderer.ViewController;
-                }
-                else
-                {
-                    viewController = page.CreateViewController();
-                }
+                var pageRenderer = Platform.GetRenderer(page) ?? Platform.CreateRenderer(page);
+                var viewController = pageRenderer.ViewController;
+
                 var parentPage = Element.GetParentPage();
                 var renderer = Platform.GetRenderer(parentPage);
+
                 Control.ParentViewController = renderer.ViewController;
                 Control.ViewController = viewController;
-                _initializedPage = page;
             }
             else
             {

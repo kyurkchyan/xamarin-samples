@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  x:Class="TabSample.Views.CarPage"
+  BackgroundColor="Transparent">
+  <ContentView
+    BackgroundColor="Transparent"
+    VerticalOptions="FillAndExpand"
+    HorizontalOptions="FillAndExpand">
+    <StackLayout
+      Padding="5,10,5,10"
+      HorizontalOptions="FillAndExpand"
+      VerticalOptions="Center">
+      <Image
+        Source="{Binding ImageUrl}"
+        HeightRequest="200"
+        Aspect="AspectFill"
+        BackgroundColor="Gray"
+        HorizontalOptions="FillAndExpand"/>
+      <Label
+        Text="{Binding Name}"
+        TextColor="Black"
+        FontSize="20"
+        HorizontalTextAlignment="Center"
+        VerticalTextAlignment="Center"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand"/>
+    </StackLayout>
+  </ContentView>
+</ContentPage>

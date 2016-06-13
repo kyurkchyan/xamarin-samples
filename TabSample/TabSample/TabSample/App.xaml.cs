@@ -10,13 +10,17 @@ namespace TabSample
 {
     public partial class App : Application
     {
+        private static App _instance;
         public App()
         {
             InitializeComponent();
+            _instance = this;
             // The root page of your application
             MainPage = new NavigationPage(new TabSamplePage());
         }
 
+        public static App Instance => _instance;
+        
         protected override void OnStart()
         {
             // Handle when your app starts

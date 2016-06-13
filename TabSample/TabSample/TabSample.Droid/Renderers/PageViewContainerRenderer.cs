@@ -78,6 +78,8 @@ namespace TabSample.Droid.Renderers
                 page.Parent = parentPage;
 
                 var existingRenderer = Platform.GetRenderer(page);
+                if (existingRenderer == null)
+                    existingRenderer = Platform.CreateRenderer(page);
                 _contentNeedsLayout = true;
                 SetNativeControl(existingRenderer?.ViewGroup);
                 Invalidate();

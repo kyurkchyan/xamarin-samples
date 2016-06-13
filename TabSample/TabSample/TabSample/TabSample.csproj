@@ -38,11 +38,14 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\HeaderTabView.xaml.cs">
+      <DependentUpon>HeaderTabView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ObservedCollection.cs" />
     <Compile Include="Controls\PageViewContainer.cs" />
     <Compile Include="Controls\BaseTabView.cs" />
-    <Compile Include="Controls\ScrollTabView.cs" />
     <Compile Include="Controls\ScrollViewEx.cs" />
+    <Compile Include="Controls\StretchableImage.cs" />
     <Compile Include="Controls\ViewButton.cs" />
     <Compile Include="Converters\TabTitleStyleConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -51,6 +54,9 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CarsViewModel.cs" />
     <Compile Include="ViewModels\CarViewModel.cs" />
+    <Compile Include="Views\CarPage.xaml.cs">
+      <DependentUpon>CarPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TabSamplePage.xaml.cs">
       <DependentUpon>TabSamplePage.xaml</DependentUpon>
     </Compile>
@@ -81,6 +87,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\CarPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\HeaderTabView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

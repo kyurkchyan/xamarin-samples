@@ -3,17 +3,19 @@
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:controls="clr-namespace:TabSample.Controls;assembly=TabSample"
+  xmlns:views="clr-namespace:TabSample.Views;assembly=TabSample"
   x:Class="TabSample.Views.TabSamplePage"
   BackgroundColor="White">
   <StackLayout>
-    <controls:ScrollTabView
+    <controls:HeaderTabView
+      x:Name="HeaderTabView"
       Tabs="{Binding Cars}"
       CurrentTab="{Binding SelectedItem}"
       TitleSpacing="50"
       HeaderHeight="44"
       HorizontalOptions="FillAndExpand"
       VerticalOptions="FillAndExpand">
-      <controls:ScrollTabView.TitleTemplate>
+      <controls:HeaderTabView.TitleTemplate>
         <DataTemplate>
           <Label
             Text="{Binding Name}"
@@ -21,31 +23,17 @@
             VerticalOptions="Center"
             VerticalTextAlignment="Center"/>
         </DataTemplate>
-      </controls:ScrollTabView.TitleTemplate>
-      <controls:ScrollTabView.ContentTemplate>
+      </controls:HeaderTabView.TitleTemplate>
+      <controls:HeaderTabView.ContentTemplate>
         <DataTemplate>
-          <StackLayout
-            Padding="5,10,5,10"
+          <controls:PageViewContainer
             HorizontalOptions="FillAndExpand"
-            VerticalOptions="Center">
-            <Image
-              Source="{Binding ImageUrl}"
-              HeightRequest="200"
-              Aspect="AspectFill"
-              BackgroundColor="Gray"
-              HorizontalOptions="FillAndExpand"/>
-            <Label
-              Text="{Binding Name}"
-              TextColor="Black"
-              FontSize="20"
-              HorizontalTextAlignment="Center"
-              VerticalTextAlignment="Center"
-              HorizontalOptions="FillAndExpand"
-              VerticalOptions="FillAndExpand"/>
-          </StackLayout>
+            VerticalOptions="FillAndExpand">
+            <views:CarPage/>
+          </controls:PageViewContainer>
         </DataTemplate>
-      </controls:ScrollTabView.ContentTemplate>
-    </controls:ScrollTabView>
+      </controls:HeaderTabView.ContentTemplate>
+    </controls:HeaderTabView>
     <Label
       Text="{Binding TestAction}"
       Margin="20"

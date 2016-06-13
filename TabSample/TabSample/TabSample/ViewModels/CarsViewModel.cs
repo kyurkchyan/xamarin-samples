@@ -85,7 +85,7 @@ namespace TabSample.ViewModels
             SelectedItem = Cars.FirstOrDefault();
 
             TestAction = "Testing item removing at index 2.";
-            await Task.Delay(5000);
+            await Task.Delay(2000);
             Cars.RemoveAt(2);
 
             TestAction = "Testing item inserting at index 2.";
@@ -94,11 +94,11 @@ namespace TabSample.ViewModels
 
             TestAction = "Testing item appending at end";
             await Task.Delay(5000);
-            Cars.Add(_items[0]);
+            Cars.Add(new CarViewModel("Car 6 added", _items[2].ImageUrl));
 
             TestAction = "Testing item replacing at index 0";
             await Task.Delay(5000);
-            Cars[0] = _items.Last();
+            Cars[0] = new CarViewModel("Car 0 replaced", _items.Last().ImageUrl);
 
             TestAction = "Testing completed";
         }

@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TabSample.Converters;
-using TabSample.ViewModels;
+
 using Xamarin.Forms;
 
 namespace TabSample.Views
 {
-    public partial class TabSamplePage : ContentPage
+    public partial class CarPage : ContentPage
     {
-        public TabSamplePage()
+        public CarPage()
         {
             InitializeComponent();
-            BindingContext = new CarsViewModel();
+        }
+
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
         }
     }
 }
