@@ -35,21 +35,6 @@ namespace CarouselSample.Controls
 
         #endregion
 
-
-        #region MaxWidth
-
-        public static readonly BindableProperty MaxWidthProperty = BindableProperty.Create(nameof(MaxWidth), typeof (float), typeof (Carousel),
-            defaultValue: -1f);
-
-        public float MaxWidth
-        {
-            get { return (float) GetValue(MaxWidthProperty); }
-            set { SetValue(MaxWidthProperty, value); }
-        }
-
-        #endregion
-
-
         #region Items
 
         public static readonly BindableProperty ItemsProperty = BindableProperty.Create(nameof(Items), typeof (IList),

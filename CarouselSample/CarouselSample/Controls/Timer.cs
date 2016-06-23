@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace CarouselSample.Controls
 {
-    internal delegate void TimerCallback(object state);
+    public delegate void TimerCallback(object state);
 
-    internal sealed class Timer : CancellationTokenSource, IDisposable
+    public sealed class Timer : CancellationTokenSource, IDisposable
     {
-        internal Timer(TimerCallback callback, object state, int dueTimeInMilliseconds)
+        public Timer(TimerCallback callback, object state, int dueTimeInMilliseconds)
         {
             Task.Delay(dueTimeInMilliseconds, Token).ContinueWith((t, s) =>
             {

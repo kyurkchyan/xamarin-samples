@@ -1,29 +1,29 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using Carousels;
+using System.Runtime.InteropServices;
+using Android.Animation;
+using Android.OS;
+using Android.Support.V7.Widget;
+using Android.Views;
+using Android.Widget;
 using CarouselSample.Controls;
-using CarouselSample.iOS.Renderers;
-using CoreGraphics;
-using Foundation;
-using UIKit;
+using CarouselSample.Droid.Renderers;
+using CarouselSample.Droid.Toolbox;
 using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
+using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportRenderer(typeof(Carousel), typeof(CarouselRenderer))]
-namespace CarouselSample.iOS.Renderers
+namespace CarouselSample.Droid.Renderers
 {
-    public class CarouselRenderer : ViewRenderer<Carousel, CarouselCollectionView>
+    public class CarouselRenderer : ViewRenderer<Carousel, SnappyRecyclerView>
     {
         #region Private fields
 
-        private nfloat _previousWidth;
-        private nfloat _previousHeight;
         private ObservedCollection _observedCollection;
-        private CarouselSource _source;
+        private CarouselAdapter _adapter;
+        private SnappyLinearLayoutManager _layoutManager;
 
         #endregion
 
@@ -34,24 +34,18 @@ namespace CarouselSample.iOS.Renderers
             base.OnElementChanged(e);
             if (Control == null)
             {
-                var carousel = new CarouselCollectionView(e.NewElement.Bounds.ToRectangleF())
-                {
-                    AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
-                };
-                carousel.Source = _source = new CarouselSource(e.NewElement, carousel);
-
-                SetNativeControl(carousel);
+                var element = e.NewElement;
+                CreateCarousel(element);
             }
 
             if (e.OldElement != null && Control != null)
             {
-                //NSNotificationCenter.DefaultCenter.RemoveObserver(this);
+
                 DisconnectCollectionEvents();
             }
 
             if (e.NewElement != null)
             {
-                //NSNotificationCenter.DefaultCenter.AddObserver(UIDevice.OrientationDidChangeNotification, n => UpdateFrame());
                 SetupCollection();
                 UpdateItems();
                 UpdateCurrent();
@@ -68,28 +62,61 @@ namespace CarouselSample.iOS.Renderers
             {
                 SetupCollection();
                 UpdateItems();
+                UpdateCurrent();
             }
-            else if (e.PropertyName == Carousel.ItemsProperty.PropertyName ||
-                e.PropertyName == Carousel.ItemTemplateProperty.PropertyName)
+            else if (e.PropertyName == Carousel.ItemTemplateProperty.PropertyName)
             {
-                UpdateItems();
+                UpdateAdapter();
             }
-            else if (e.PropertyName == Carousel.CurrentProperty.PropertyName)
+            else if (e.PropertyName == Carousel.CurrentProperty.PropertyName && sender != this)
             {
                 UpdateCurrent();
             }
         }
 
-        public override void LayoutSubviews()
+        protected override void OnSizeChanged(int w, int h, int oldw, int oldh)
         {
-            base.LayoutSubviews();
-            UpdateFrame();
+            base.OnSizeChanged(w, h, oldw, oldh);
+            if (oldw != w || oldh != h)
+            {
+                UpdateAdapter();
+            }
         }
-
 
         #endregion
 
         #region Utility methods
+
+        private void CreateCarousel(Carousel element)
+        {
+            //Create carousel
+            var carousel = new SnappyRecyclerView(Forms.Context, SelectItemAction);
+            
+            //Setup layout options
+            var frame = element.Bounds;
+            var width = (int)Context.ToPixels(frame.Width);
+            var height = (int)Context.ToPixels(frame.Height);
+            carousel.LayoutParameters = new LayoutParams(width, height);
+
+            //Set the custom adapter
+            _adapter = new CarouselAdapter(element);
+            carousel.SetAdapter(_adapter);
+
+            //Set the custom layout manager
+            _layoutManager = new SnappyLinearLayoutManager(Context);
+            carousel.SetLayoutManager(_layoutManager);
+
+            SetNativeControl(carousel);
+        }
+
+        private void SelectItemAction(int index)
+        {
+            if (!(index >= 0 && index < Element?.Items?.Count))
+                return;
+            var item = Element.Items[index];
+            Element.Current = item;
+            UpdateCurrent();
+        }
 
         private void SetupCollection()
         {
@@ -97,32 +124,49 @@ namespace CarouselSample.iOS.Renderers
 
             var items = Element.Items as INotifyCollectionChanged;
             if (items == null) return;
-
             _observedCollection = new ObservedCollection(items);
             ConnectCollectionEvents();
         }
 
+        private void UpdateAdapter()
+        {
+            Context.InvokeOnMainThread(() =>
+            {
+                _adapter = new CarouselAdapter(Element);
+                Control.SetAdapter(_adapter);
+                UpdateCurrent(false);
+            });
+        }
+
+
         private void UpdateItems()
         {
-            Control.ReloadData();
+            _adapter.NotifyDataSetChanged();
         }
 
-        private void UpdateCurrent()
+        private void UpdateCurrent(bool animated = true)
         {
             var index = Element?.Items?.IndexOf(Element.Current);
-            if (index >= 0 && index != _source.CurrentIndex)
-                Control.ScrollToItem(NSIndexPath.FromRowSection(index.Value, 0), UICollectionViewScrollPosition.Left, false);
+            if (index >= 0)
+                ScrollToItemAt(index.Value, animated);
         }
 
-        private void UpdateFrame()
+        private void ScrollToItemAt(int index, bool animated = true)
         {
-            if (_previousWidth != Control.Bounds.Width ||
-                    _previousHeight != Control.Bounds.Height)
+            if (!(index >= 0 && index < (Element?.Items?.Count ?? -1)))
+                return;
+
+            Context.InvokeOnMainThread(() =>
             {
-                Control.CellSize = new CGSize(Control.Bounds.Width, Control.Bounds.Height);
-                _previousWidth = Control.Bounds.Width;
-                _previousHeight = Control.Bounds.Height;
-            }
+                if (animated)
+                {
+                    Control.SmoothScrollToPosition(index);
+                }
+                else
+                {
+                    _layoutManager.ScrollToPosition(index);
+                }
+            });
         }
 
         #region Observed collection
@@ -151,31 +195,28 @@ namespace CarouselSample.iOS.Renderers
 
         private void CollectionOnOnItemReplaced(INotifyCollectionChanged aSender, int aIndex, object aOldItem, object aNewItem)
         {
-            Control.ReloadItems(new[] { NSIndexPath.FromRowSection(aIndex, 0) });
+            _adapter.NotifyItemChanged(aIndex);
         }
 
         private void CollectionOnOnItemRemoved(INotifyCollectionChanged aSender, int aIndex, object aItem)
         {
-            Control.DeleteItems(new[] { NSIndexPath.FromRowSection(aIndex, 0) });
+            _adapter.NotifyItemRemoved(aIndex);
         }
 
         private void CollectionOnOnItemMoved(INotifyCollectionChanged aSender, int aOldIndex, int aNewIndex, object aItem)
         {
-            Control.PerformBatchUpdates(() =>
-            {
-                Control.DeleteItems(new[] { NSIndexPath.FromRowSection(aOldIndex, 0) });
-                Control.InsertItems(new[] { NSIndexPath.FromRowSection(aNewIndex, 0) });
-            }, null);
+            _adapter.NotifyItemRemoved(aOldIndex);
+            _adapter.NotifyItemInserted(aNewIndex);
         }
 
         private void CollectionOnOnItemAdded(INotifyCollectionChanged aSender, int aIndex, object aItem)
         {
-            Control.InsertItems(new[] { NSIndexPath.FromRowSection(aIndex, 0) });
+            _adapter.NotifyItemInserted(aIndex);
         }
 
         private void CollectionOnOnCleared(INotifyCollectionChanged aSender)
         {
-            UpdateItems();
+            _adapter.NotifyDataSetChanged();
         }
 
         #endregion

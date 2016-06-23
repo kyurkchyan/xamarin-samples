@@ -28,7 +28,6 @@
       Items="{Binding Cars}"
       Current="{Binding SelectedItem}"
       HeightRequest="300"
-      MaxWidth="350"
       HorizontalOptions="FillAndExpand"
       VerticalOptions="Center"
       BackgroundColor="Aqua">
