@@ -84,13 +84,13 @@ namespace CarouselSample.ViewModels
             Cars = cars;
             SelectedItem = Cars.FirstOrDefault();
 
-            TestAction = "Testing item removing at index 2.";
-            await Task.Delay(2000);
-            Cars.RemoveAt(2);
+            TestAction = "Testing item removing at end";
+            await Task.Delay(5000);
+            Cars.RemoveAt(_items.Count - 1);
 
             TestAction = "Testing item inserting at index 2.";
             await Task.Delay(2000);
-            Cars.Insert(2, _items[2]);
+            Cars.Insert(2, _items[_items.Count - 1]);
 
             TestAction = "Testing item appending at end";
             await Task.Delay(5000);

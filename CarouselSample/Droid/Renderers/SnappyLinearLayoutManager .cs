@@ -25,7 +25,6 @@ namespace CarouselSample.Droid.Renderers
 
         #endregion
 
-
         #region Constructors
 
         public SnappyLinearLayoutManager(Context context)
@@ -36,7 +35,6 @@ namespace CarouselSample.Droid.Renderers
 
 
         #endregion
-
 
         #region Public API
 
@@ -86,7 +84,5 @@ namespace CarouselSample.Droid.Renderers
         }
 
         #endregion
-
-
     }
 }

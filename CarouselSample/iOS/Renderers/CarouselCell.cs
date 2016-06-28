@@ -32,7 +32,7 @@ namespace CarouselSample.iOS.Renderers
         public CarouselCell(IntPtr handle)
             : base(handle)
         {
-            
+
         }
 
         #endregion
@@ -61,12 +61,17 @@ namespace CarouselSample.iOS.Renderers
 
         #region Parent override
 
+        public override void PrepareForReuse()
+        {
+            base.PrepareForReuse();
+            _view.BindingContext = null;
+        }
+
         public override void LayoutSubviews()
         {
             base.LayoutSubviews();
             if (_lastSize.Equals(CGSize.Empty) || !_lastSize.Equals(Frame.Size))
             {
-
                 _view.Layout(Frame.ToRectangle());
                 _lastSize = Frame.Size;
             }
@@ -74,13 +79,6 @@ namespace CarouselSample.iOS.Renderers
             _nativeView.Frame = ContentView.Bounds;
 
         }
-
-        //public override void ApplyLayoutAttributes(UICollectionViewLayoutAttributes layoutAttributes)
-        //{
-        //    var attributes = (CarouselLayoutAttributes) layoutAttributes;
-        //    this.Layer.AddAnimation(attributes.TransformAnimation, "transform");
-
-        //}
 
         #endregion
     }

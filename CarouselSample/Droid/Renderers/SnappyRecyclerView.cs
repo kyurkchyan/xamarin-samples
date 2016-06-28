@@ -15,14 +15,13 @@ namespace CarouselSample.Droid.Renderers
 
         #endregion
 
-
         #region Constructors
 
         public SnappyRecyclerView(Context context, Action<int> selectItemAction)
             : base(context)
         {
             var config = ViewConfiguration.Get(Context);
-            _flingThreshold = (int)(config.ScaledMinimumFlingVelocity + 0.3*config.ScaledMaximumFlingVelocity);
+            _flingThreshold = (int)(config.ScaledMinimumFlingVelocity + 0.3 * config.ScaledMaximumFlingVelocity);
             SelectItemAction = selectItemAction;
         }
 
@@ -30,7 +29,7 @@ namespace CarouselSample.Droid.Renderers
 
         #region Properties
 
-        public Action<int> SelectItemAction { get; set; } 
+        public Action<int> SelectItemAction { get; set; }
 
         #endregion
 
@@ -41,12 +40,23 @@ namespace CarouselSample.Droid.Renderers
             var layout = GetLayoutManager() as SnappyLinearLayoutManager;
             if (layout != null)
             {
-                if(Math.Abs(velocityX) > _flingThreshold)
+                if (Math.Abs(velocityX) > _flingThreshold)
                     UpdateCurrentItem(true, velocityX >= 0);
                 else
                     UpdateCurrentItem();
             }
             return base.Fling(velocityX, velocityY);
+        }
+
+        public override bool OnTouchEvent(MotionEvent e)
+        {
+            var layout = GetLayoutManager() as SnappyLinearLayoutManager;
+            if (layout != null && (e.Action == MotionEventActions.Up ||
+                e.Action == MotionEventActions.Cancel))
+            {
+                UpdateCurrentItem();
+            }
+            return base.OnTouchEvent(e);
         }
 
         #endregion
@@ -56,7 +66,7 @@ namespace CarouselSample.Droid.Renderers
         private void UpdateCurrentItem(bool isNext = false, bool isForward = true)
         {
             var layout = GetLayoutManager() as SnappyLinearLayoutManager;
-            if(layout == null)
+            if (layout == null)
                 return;
             var index = isNext ? layout.GetNextSnappyScrollPosition(isForward) : layout.GetSnappyScrollPosition();
             SelectItemAction?.Invoke(index);

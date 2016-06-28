@@ -1,17 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
-using Android.Widget;
 using CarouselSample.Controls;
-using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 namespace CarouselSample.Droid.Renderers
@@ -30,8 +19,8 @@ namespace CarouselSample.Droid.Renderers
         {
             _carousel = carousel;
             var frame = _carousel.Bounds;
-            LayoutParams = new ViewGroup.LayoutParams((int)Forms.Context.ToPixels(frame.Width),
-                (int)Forms.Context.ToPixels(frame.Height));
+            LayoutParams = new ViewGroup.LayoutParams((int)Xamarin.Forms.Forms.Context.ToPixels(frame.Width),
+                (int)Xamarin.Forms.Forms.Context.ToPixels(frame.Height));
         }
 
         #endregion
@@ -58,7 +47,7 @@ namespace CarouselSample.Droid.Renderers
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            var view = new CarouselViewHolder(Forms.Context, _carousel.ItemTemplate);
+            var view = new CarouselViewHolder(Xamarin.Forms.Forms.Context, _carousel.ItemTemplate);
             view.LayoutParameters = LayoutParams;
 
             var viewHolder = new RecyclerViewCarouselViewHolder(view);
@@ -67,7 +56,7 @@ namespace CarouselSample.Droid.Renderers
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
-            var viewHolder = (RecyclerViewCarouselViewHolder) holder;
+            var viewHolder = (RecyclerViewCarouselViewHolder)holder;
             viewHolder.ViewHolder.Update(_carousel.Items[position]);
         }
 

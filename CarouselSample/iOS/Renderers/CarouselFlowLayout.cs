@@ -12,9 +12,9 @@ namespace CarouselSample.iOS.Renderers
         #region Constructors
 
         public CarouselFlowLayout()
-            :base()
+            : base()
         {
-            
+
         }
 
         public CarouselFlowLayout(IntPtr handle)

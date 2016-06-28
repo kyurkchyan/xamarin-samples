@@ -36,7 +36,6 @@
     <Compile Include="Controls\Carousel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CarouselSample.cs" />
-    <Compile Include="Controls\Timer.cs" />
     <Compile Include="Toolbox\CollectionToolbox.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CarsViewModel.cs" />

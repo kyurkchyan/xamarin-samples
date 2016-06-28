@@ -11,14 +11,14 @@ namespace CarouselSample.Droid.Renderers
         #region Private fields
 
         private readonly WeakReference<SnappyLinearLayoutManager> _layoutManager;
-        private const float MILLISECONDS_PER_INCH = 50f;
+        private const float MillisecondsPerInch = 50f;
 
         #endregion
 
         #region Constructors
 
         public SnappySmoothScroller(Context context, SnappyLinearLayoutManager layoutManager)
-            :base(context)
+            : base(context)
         {
             _layoutManager = new WeakReference<SnappyLinearLayoutManager>(layoutManager);
         }
@@ -29,7 +29,7 @@ namespace CarouselSample.Droid.Renderers
 
         protected override float CalculateSpeedPerPixel(DisplayMetrics displayMetrics)
         {
-            return MILLISECONDS_PER_INCH / (int)displayMetrics.DensityDpi;
+            return MillisecondsPerInch / (int)displayMetrics.DensityDpi;
         }
 
         public override PointF ComputeScrollVectorForPosition(int targetPosition)
@@ -37,7 +37,7 @@ namespace CarouselSample.Droid.Renderers
             SnappyLinearLayoutManager layoutManager;
             _layoutManager.TryGetTarget(out layoutManager);
 
-            return layoutManager.ComputeScrollVectorForPosition(targetPosition);
+            return layoutManager?.ComputeScrollVectorForPosition(targetPosition);
         }
         protected override int HorizontalSnapPreference => SnapToStart;
 

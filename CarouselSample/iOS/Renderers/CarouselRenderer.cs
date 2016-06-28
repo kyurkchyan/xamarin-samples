@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using Carousels;
 using CarouselSample.Controls;
 using CarouselSample.iOS.Renderers;
 using CoreGraphics;
@@ -45,13 +42,11 @@ namespace CarouselSample.iOS.Renderers
 
             if (e.OldElement != null && Control != null)
             {
-                //NSNotificationCenter.DefaultCenter.RemoveObserver(this);
                 DisconnectCollectionEvents();
             }
 
             if (e.NewElement != null)
             {
-                //NSNotificationCenter.DefaultCenter.AddObserver(UIDevice.OrientationDidChangeNotification, n => UpdateFrame());
                 SetupCollection();
                 UpdateItems();
                 UpdateCurrent();
@@ -68,9 +63,9 @@ namespace CarouselSample.iOS.Renderers
             {
                 SetupCollection();
                 UpdateItems();
+                UpdateCurrent();
             }
-            else if (e.PropertyName == Carousel.ItemsProperty.PropertyName ||
-                e.PropertyName == Carousel.ItemTemplateProperty.PropertyName)
+            else if (e.PropertyName == Carousel.ItemTemplateProperty.PropertyName)
             {
                 UpdateItems();
             }
@@ -109,6 +104,8 @@ namespace CarouselSample.iOS.Renderers
 
         private void UpdateCurrent()
         {
+            if (Element.Current == null)
+                return;
             var index = Element?.Items?.IndexOf(Element.Current);
             if (index >= 0 && index != _source.CurrentIndex)
                 Control.ScrollToItem(NSIndexPath.FromRowSection(index.Value, 0), UICollectionViewScrollPosition.Left, false);
@@ -152,11 +149,20 @@ namespace CarouselSample.iOS.Renderers
         private void CollectionOnOnItemReplaced(INotifyCollectionChanged aSender, int aIndex, object aOldItem, object aNewItem)
         {
             Control.ReloadItems(new[] { NSIndexPath.FromRowSection(aIndex, 0) });
+            if (aOldItem == Element.Current)
+                Element.Current = aNewItem;
         }
 
         private void CollectionOnOnItemRemoved(INotifyCollectionChanged aSender, int aIndex, object aItem)
         {
             Control.DeleteItems(new[] { NSIndexPath.FromRowSection(aIndex, 0) });
+            if (aItem == Element.Current)
+            {
+                var count = Element.Items?.Count ?? 0;
+                var index = Math.Min(aIndex, count - 1);
+                if (index < count)
+                    Element.Current = Element.Items[index];
+            }
         }
 
         private void CollectionOnOnItemMoved(INotifyCollectionChanged aSender, int aOldIndex, int aNewIndex, object aItem)
@@ -166,6 +172,7 @@ namespace CarouselSample.iOS.Renderers
                 Control.DeleteItems(new[] { NSIndexPath.FromRowSection(aOldIndex, 0) });
                 Control.InsertItems(new[] { NSIndexPath.FromRowSection(aNewIndex, 0) });
             }, null);
+            UpdateCurrent();
         }
 
         private void CollectionOnOnItemAdded(INotifyCollectionChanged aSender, int aIndex, object aItem)

@@ -22,7 +22,7 @@ namespace CarouselSample.iOS.Renderers
         private CGPoint _offset;
         private readonly nfloat _velocityThreshold = 0;
         private readonly nfloat _snapAnimationDuration = 0.2f;
-        
+
         #endregion
 
 
@@ -57,7 +57,6 @@ namespace CarouselSample.iOS.Renderers
         }
 
         #endregion
-
 
         #region UICollectionViewSource
 

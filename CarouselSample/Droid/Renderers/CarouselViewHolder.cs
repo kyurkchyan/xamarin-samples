@@ -25,7 +25,6 @@ namespace CarouselSample.Droid.Renderers
 
         #endregion
 
-
         #region Constructors
 
         public CarouselViewHolder(Context context, DataTemplate template) : base(context)
@@ -41,7 +40,6 @@ namespace CarouselSample.Droid.Renderers
         }
 
         #endregion
-
 
         #region Public API
 
@@ -63,10 +61,9 @@ namespace CarouselSample.Droid.Renderers
             {
                 h.Post(() =>
                 {
-                    double width = base.Context.FromPixels((double) (r - l));
-                    double height = base.Context.FromPixels((double) (b - t));
+                    double width = base.Context.FromPixels((double)(r - l));
+                    double height = base.Context.FromPixels((double)(b - t));
                     var size = new Size(width, height);
-
                     var msw = MeasureSpec.MakeMeasureSpec(r - l, MeasureSpecMode.Exactly);
                     var msh = MeasureSpec.MakeMeasureSpec(b - t, MeasureSpecMode.Exactly);
                     _nativeView.Measure(msw, msh);
@@ -85,7 +82,6 @@ namespace CarouselSample.Droid.Renderers
 
         #endregion
 
-
         #region Utility methods
 
         private void FixChildLayouts(Layout<View> layout)
@@ -94,7 +90,7 @@ namespace CarouselSample.Droid.Renderers
             {
                 if (child is Layout<View>)
                 {
-                    ((Layout<View>) child).ForceLayout();
+                    ((Layout<View>)child).ForceLayout();
                     FixChildLayouts(child as Layout<View>);
                 }
             }

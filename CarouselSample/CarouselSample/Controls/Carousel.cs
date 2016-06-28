@@ -24,12 +24,12 @@ namespace CarouselSample.Controls
         #region ItemTemplate
 
         public static readonly BindableProperty ItemTemplateProperty = BindableProperty.Create(nameof(ItemTemplate),
-            typeof (DataTemplate), typeof (Carousel),
+            typeof(DataTemplate), typeof(Carousel),
             defaultValue: null);
 
         public DataTemplate ItemTemplate
         {
-            get { return (DataTemplate) GetValue(ItemTemplateProperty); }
+            get { return (DataTemplate)GetValue(ItemTemplateProperty); }
             set { SetValue(ItemTemplateProperty, value); }
         }
 
@@ -37,13 +37,13 @@ namespace CarouselSample.Controls
 
         #region Items
 
-        public static readonly BindableProperty ItemsProperty = BindableProperty.Create(nameof(Items), typeof (IList),
-            typeof (Carousel),
+        public static readonly BindableProperty ItemsProperty = BindableProperty.Create(nameof(Items), typeof(IList),
+            typeof(Carousel),
             defaultValue: default(IList));
 
         public IList Items
         {
-            get { return (IList) GetValue(ItemsProperty); }
+            get { return (IList)GetValue(ItemsProperty); }
             set { SetValue(ItemsProperty, value); }
         }
 
@@ -51,12 +51,12 @@ namespace CarouselSample.Controls
 
         #region Current
 
-        public static readonly BindableProperty CurrentProperty = BindableProperty.Create(nameof(Current), typeof (object), typeof (Carousel),
-            defaultValue: null, defaultBindingMode:BindingMode.TwoWay);
+        public static readonly BindableProperty CurrentProperty = BindableProperty.Create(nameof(Current), typeof(object), typeof(Carousel),
+            defaultValue: null, defaultBindingMode: BindingMode.TwoWay);
 
         public object Current
         {
-            get { return (object) GetValue(CurrentProperty); }
+            get { return (object)GetValue(CurrentProperty); }
             set { SetValue(CurrentProperty, value); }
         }
 

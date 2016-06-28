@@ -21,10 +21,10 @@ namespace CarouselSample.iOS.Renderers
         #region Constructors
 
         public CarouselCollectionView(CGRect frame)
-			: base(frame, new UICollectionViewFlowLayout()
-			{
-			    ScrollDirection = UICollectionViewScrollDirection.Horizontal
-			})
+            : base(frame, new UICollectionViewFlowLayout()
+            {
+                ScrollDirection = UICollectionViewScrollDirection.Horizontal
+            })
         {
             RegisterClassForCell(typeof(CarouselCell), nameof(CarouselCell));
             _layout = (UICollectionViewFlowLayout)CollectionViewLayout;
@@ -56,7 +56,7 @@ namespace CarouselSample.iOS.Renderers
         #region Properties
 
         private CGSize _cellSize;
-        public CGSize CellSize  
+        public CGSize CellSize
         {
             get
             {
@@ -64,7 +64,7 @@ namespace CarouselSample.iOS.Renderers
             }
             set
             {
-                if(_cellSize != value)
+                if (_cellSize != value)
                 {
                     _cellSize = value;
                     _layout.ItemSize = _cellSize;

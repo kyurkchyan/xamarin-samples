@@ -90,8 +90,8 @@ namespace CarouselSample.Droid.Renderers
         private void CreateCarousel(Carousel element)
         {
             //Create carousel
-            var carousel = new SnappyRecyclerView(Forms.Context, SelectItemAction);
-            
+            var carousel = new SnappyRecyclerView(Xamarin.Forms.Forms.Context, SelectItemAction);
+
             //Setup layout options
             var frame = element.Bounds;
             var width = (int)Context.ToPixels(frame.Width);
@@ -146,6 +146,8 @@ namespace CarouselSample.Droid.Renderers
 
         private void UpdateCurrent(bool animated = true)
         {
+            if(Element.Current == null)
+                return;
             var index = Element?.Items?.IndexOf(Element.Current);
             if (index >= 0)
                 ScrollToItemAt(index.Value, animated);
@@ -196,17 +198,27 @@ namespace CarouselSample.Droid.Renderers
         private void CollectionOnOnItemReplaced(INotifyCollectionChanged aSender, int aIndex, object aOldItem, object aNewItem)
         {
             _adapter.NotifyItemChanged(aIndex);
+            if (aOldItem == Element.Current)
+                Element.Current = aNewItem;
         }
 
         private void CollectionOnOnItemRemoved(INotifyCollectionChanged aSender, int aIndex, object aItem)
         {
             _adapter.NotifyItemRemoved(aIndex);
+            if (aItem == Element.Current)
+            {
+                var count = Element.Items?.Count ?? 0;
+                var index = Math.Min(aIndex, count - 1);
+                if (index < count)
+                    Element.Current = Element.Items[index];
+            }
         }
 
         private void CollectionOnOnItemMoved(INotifyCollectionChanged aSender, int aOldIndex, int aNewIndex, object aItem)
         {
             _adapter.NotifyItemRemoved(aOldIndex);
             _adapter.NotifyItemInserted(aNewIndex);
+            UpdateCurrent(false);
         }
 
         private void CollectionOnOnItemAdded(INotifyCollectionChanged aSender, int aIndex, object aItem)
