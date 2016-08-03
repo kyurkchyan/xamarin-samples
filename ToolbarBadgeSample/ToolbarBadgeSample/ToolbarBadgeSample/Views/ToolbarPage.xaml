@@ -39,14 +39,9 @@
       SvgIcon="messages.svg"
       SvgWidth="30"
       SvgHeight="30"
-      
       BadgeColor="#2B10B0"
       IsBadgeVisible="true"
       BadgeCount="105"/>
-    <ToolbarItem
-      Icon="/storage/emulated/0/toolbar/ugrrejnn.frc/events.png"/>
-    <ToolbarItem
-      Icon="/storage/emulated/0/toolbar/ugrrejnn.frc/aaa.png"/>
     
   </ContentPage.ToolbarItems>
   <Image

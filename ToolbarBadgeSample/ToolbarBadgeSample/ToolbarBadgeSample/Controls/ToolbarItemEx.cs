@@ -453,8 +453,8 @@ namespace ToolbarBadgeSample.Controls
                            $"{BadgePadding.Left}.{BadgePadding.Top}.{BadgePadding.Right}.{BadgePadding.Bottom}";
             }
 
-            //var hash = $"{filename.GetHashCode():X}@{_deviceService.Scale}x.png";
-            var hash = $"{filename.GetHashCode():X}.png";
+            var hash = $"{filename.GetHashCode():X}@{_deviceService.Scale}x.png";
+            //var hash = $"{filename.GetHashCode():X}.png";
             return hash;
         }
 

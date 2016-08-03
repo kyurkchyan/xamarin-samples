@@ -56,8 +56,7 @@ namespace ToolbarBadgeSample.iOS.Services
             if (nativeImage == null)
                 return null;
 
-			var image = new CGImageImage(nativeImage.CGImage, _scale);
-
+            var image = new CGImageImage(nativeImage.CGImage, _scale);
             return image;
         }
 
