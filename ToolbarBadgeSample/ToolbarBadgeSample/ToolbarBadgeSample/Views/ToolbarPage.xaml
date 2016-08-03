@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:ToolbarBadgeSample.Controls;assembly=ToolbarBadgeSample"
+             x:Class="ToolbarBadgeSample.Views.ToolbarPage">
+  <!--<ContentPage.ToolbarItems>
+    <controls:ToolbarItemEx
+      FileIcon="agenda.png"
+      BadgeColor="#10B07B"
+      IsBadgeVisible="True"
+      BadgeCount="20"/>
+    <controls:ToolbarItemEx
+      FileIcon="events.png"
+      BadgeColor="#B01045"
+      IsBadgeVisible="True"
+      BadgeCount="7"/>
+    <controls:ToolbarItemEx
+      FileIcon="messages.png"
+      BadgeColor="#2B10B0"
+      IsBadgeVisible="True"
+      BadgeCount="105"/>
+  </ContentPage.ToolbarItems>-->
+  <ContentPage.ToolbarItems>
+    <controls:ToolbarItemEx
+      SvgIcon="agenda.svg"
+      SvgWidth="30"
+      SvgHeight="30"
+      BadgeColor="#10B07B"
+      IsBadgeVisible="False"
+      BadgeCount="20"/>
+    <controls:ToolbarItemEx
+      SvgIcon="events.svg"
+      SvgWidth="30"
+      SvgHeight="30"
+      BadgeColor="#B01045"
+      IsBadgeVisible="true"
+      BadgeCount="7"/>
+    <controls:ToolbarItemEx
+      SvgIcon="messages.svg"
+      SvgWidth="30"
+      SvgHeight="30"
+      
+      BadgeColor="#2B10B0"
+      IsBadgeVisible="true"
+      BadgeCount="105"/>
+    <ToolbarItem
+      Icon="/storage/emulated/0/toolbar/ugrrejnn.frc/events.png"/>
+    <ToolbarItem
+      Icon="/storage/emulated/0/toolbar/ugrrejnn.frc/aaa.png"/>
+    
+  </ContentPage.ToolbarItems>
+  <Image
+    Source="/storage/emulated/0/toolbar/ugrrejnn.frc/events.png"
+    HorizontalOptions="Center"
+    VerticalOptions="Center"/>
+</ContentPage>

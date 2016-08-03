@@ -24,6 +24,7 @@ namespace CarouselSample.Droid.Renderers
         private ObservedCollection _observedCollection;
         private CarouselAdapter _adapter;
         private SnappyLinearLayoutManager _layoutManager;
+        private bool _animateChange;
 
         #endregion
 
@@ -48,7 +49,7 @@ namespace CarouselSample.Droid.Renderers
             {
                 SetupCollection();
                 UpdateItems();
-                UpdateCurrent();
+                UpdateCurrent(false);
             }
         }
 
@@ -62,7 +63,7 @@ namespace CarouselSample.Droid.Renderers
             {
                 SetupCollection();
                 UpdateItems();
-                UpdateCurrent();
+                UpdateCurrent(false);
             }
             else if (e.PropertyName == Carousel.ItemTemplateProperty.PropertyName)
             {
@@ -70,7 +71,8 @@ namespace CarouselSample.Droid.Renderers
             }
             else if (e.PropertyName == Carousel.CurrentProperty.PropertyName && sender != this)
             {
-                UpdateCurrent();
+                UpdateCurrent(_animateChange);
+                _animateChange = false;
             }
         }
 
@@ -114,8 +116,8 @@ namespace CarouselSample.Droid.Renderers
             if (!(index >= 0 && index < Element?.Items?.Count))
                 return;
             var item = Element.Items[index];
+            _animateChange = true;
             Element.Current = item;
-            UpdateCurrent();
         }
 
         private void SetupCollection()
@@ -146,7 +148,7 @@ namespace CarouselSample.Droid.Renderers
 
         private void UpdateCurrent(bool animated = true)
         {
-            if(Element.Current == null)
+            if (Element.Current == null)
                 return;
             var index = Element?.Items?.IndexOf(Element.Current);
             if (index >= 0)
