@@ -24,6 +24,7 @@ namespace EntryExSample.iOS.Renderers
             UpdateBorderRadius();
             UpdateLeftPadding();
             UpdateRightPadding();
+            Control.ClipsToBounds = true;
         }
 
         protected override void OnElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -60,19 +61,19 @@ namespace EntryExSample.iOS.Renderers
         private void UpdateBorderWidth()
         {
             var entryEx = this.Element as EntryEx;
-            this.Layer.BorderWidth = entryEx.BorderWidth;
+            Control.Layer.BorderWidth = entryEx.BorderWidth;
         }
 
         private void UpdateBorderColor()
         {
             var entryEx = this.Element as EntryEx;
-            this.Layer.BorderColor = entryEx.BorderColor.ToUIColor().CGColor;
+            Control.Layer.BorderColor = entryEx.BorderColor.ToUIColor().CGColor;
         }
 
         private void UpdateBorderRadius()
         {
             var entryEx = this.Element as EntryEx;
-            this.Layer.CornerRadius = (nfloat)entryEx.BorderRadius;
+            Control.Layer.CornerRadius = (nfloat)entryEx.BorderRadius;
         }
 
         private void UpdateLeftPadding()
