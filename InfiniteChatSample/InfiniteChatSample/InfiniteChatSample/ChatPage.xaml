@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:infiniteChatSample="clr-namespace:InfiniteChatSample;assembly=InfiniteChatSample"
+    x:Class="InfiniteChatSample.ChatPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <infiniteChatSample:ChatDataTemplateSelector x:Key="ChatDataTemplateSelector" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <infiniteChatSample:ChatStream
+        ItemTemplate="{StaticResource ChatDataTemplateSelector}"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand">
+        <ListView.Header>
+            <ContentView Padding="10">
+                <ActivityIndicator
+                    IsVisible="{Binding IsLoading}"
+                    IsRunning="{Binding IsLoading}"
+                    VerticalOptions="Start"
+                    HorizontalOptions="Center" />
+            </ContentView>
+        </ListView.Header>
+    </infiniteChatSample:ChatStream>
+</ContentPage>
