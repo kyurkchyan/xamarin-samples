@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<infiniteChatSample:BaseUserMessageCell
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:infiniteChatSample="clr-namespace:InfiniteChatSample;assembly=InfiniteChatSample"
+    x:Class="InfiniteChatSample.ThisUserMessageCell">
+    <Grid
+        ColumnSpacing="10"
+        Padding="15,10,15,10"
+        HorizontalOptions="Fill">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <infiniteChatSample:CircleCachedImage
+            x:Name="ProfilePicture"
+            Grid.Column="0"
+            VerticalOptions="Start" />
+        <Frame
+            Grid.Column="1"
+            BackgroundColor="#6793e8"
+            Padding="5,10,5,10">
+            <Label
+                Text="{Binding Content}"
+                TextColor="White"
+                VerticalTextAlignment="Center" />
+        </Frame>
+    </Grid>
+</infiniteChatSample:BaseUserMessageCell>
